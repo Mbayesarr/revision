@@ -1,13 +1,11 @@
 import React from 'react'
-import ListEtudiants from './components/ListEtudiants'
 
 const App = () => {
-  return (
-    <div>
-      <ListEtudiants/>
-    </div>
-  )
+    return (
+        <div>
+            Hello I'm Really Here 🐰 !!
+        </div>
+    )
 }
 
 export default App
-

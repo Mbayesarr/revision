@@ -1,17 +1,49 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { Task } from "./models/task";
+import {createStore} from "redux";
+const initialState = [
+  new Task(1, "task 1"),
+  new Task(2, "task 2"),
+  new Task(3, "task 3")
+]
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const TYPE_TODO_ADD="todo/add"
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const TodoReducer = (action={},prevState=initialState ) => {
+
+  switch (action.type) {
+   
+    case TYPE_TODO_ADD:
+      return [
+        ...prevState,
+        new Task(
+          prevState.length + 1,
+          action.payload.titleTask
+        )
+      ]
+    default:
+      return prevState
+  }
+}
+
+let newState1 = 
+TodoReducer(
+  {
+    type : TYPE_TODO_ADD,
+    payload : {titleTask:"task 4"}
+  }
+)
+console.log(newState1)
+
+let newState2 = 
+TodoReducer(
+  {
+    type : TYPE_TODO_ADD,
+    payload : {titleTask:"task 5"}
+  },
+  newState1
+)
+console.log(newState2)
+
+//Utilisation de Redux
+const store = createStore(TodoReducer)
+console.log(store.getState())
